@@ -1,3 +1,32 @@
+/*
+let template = (<div><h1>Decision</h1></div>);
+let appRoot = document.getElementById("app");
+
+ReactDOM.render(template, appRoot);
+*/
+
+class Stopwatch extends React.Components {
+	render(){
+
+	}
+}
+
+const jsx = (
+	<div>
+		<Stopwatch />
+	</div>
+)
+
+
+ReactDOM.render(jsx, document.getElementById('app'));
+
+
+
+
+
+
+
+/*
 class Stopwatch {
     constructor(display) {
         this.running = false;
@@ -72,5 +101,5 @@ stopButton.addEventListener('click', () => stopwatch.stop());
 
 let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => stopwatch.reset());
-
+*/
 	
