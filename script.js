@@ -1,6 +1,7 @@
-//przycisk
+
 
 class App extends React.Component {
+
 	state = {
 		text: ""
 	}
