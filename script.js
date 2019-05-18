@@ -1,3 +1,33 @@
+//przycisk
+
+class App extends React.Component {
+	state = {
+		text: ""
+	}
+
+	handleClick = () => {
+		const letter = "A"
+		this.setState({
+			text: this.state.text + letter
+		})
+	}
+	render() {
+		return (
+			<div>
+				<button onClick={this.handleClick}>Dodaj "A"</button>
+				<h1>{this.state.text}</h1>
+			</div>
+		)
+	}
+}
+
+ReactDOM.render(<App />, document.getElementById("app"))
+
+
+
+
+
+
 /*
 let template = (<div><h1>Decision</h1></div>);
 let appRoot = document.getElementById("app");
@@ -5,9 +35,15 @@ let appRoot = document.getElementById("app");
 ReactDOM.render(template, appRoot);
 */
 
-class Stopwatch extends React.Components {
-	render(){
+/////////////////////////////////////////////////
+/*
+class Stopwatch extends React.Component {
+	render() {
+		return (
+			<div>
 
+			</div>
+		)
 	}
 }
 
@@ -19,7 +55,7 @@ const jsx = (
 
 
 ReactDOM.render(jsx, document.getElementById('app'));
-
+*/
 
 
 
@@ -34,7 +70,7 @@ class Stopwatch {
         this.reset();
         this.print(this.times);
     }
-	
+
 	reset() {
         this.times = {
             minutes: 0,
@@ -43,22 +79,22 @@ class Stopwatch {
         };
 		this.print();
     }
-	
+
 	print() {
         this.display.innerText = this.format(this.times);
 	}
-	
+
 	format(times) {
         return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
 	}
-	
+
 	start() {
     if (!this.running) {
         this.running = true;
         this.watch = setInterval(() => this.step(), 10);
 		}
 	}
-	
+
 	step() {
 		if (!this.running) return;
 		this.calculate();
@@ -75,7 +111,7 @@ class Stopwatch {
 			this.times.seconds = 0;
 		}
 	}
-	
+
 	stop() {
 		this.running = false;
 		clearInterval(this.watch);
@@ -102,4 +138,4 @@ stopButton.addEventListener('click', () => stopwatch.stop());
 let resetButton = document.getElementById('reset');
 resetButton.addEventListener('click', () => stopwatch.reset());
 */
-	
+
