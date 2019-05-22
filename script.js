@@ -1,32 +1,76 @@
 
 
 class App extends React.Component {
-
-	state = {
-		text: ""
+	constructor(props) {
+		super(props);
+		this.state = {
+			txt: ""
+		}
+		this.handleClick = () => {
+			const number = Math.floor(Math.random() * 10)
+			this.setState({
+				txt: this.state.txt + number
+			})
+		}
 	}
-
-	handleClick = () => {
-		const letter = "A"
-		this.setState({
-			text: this.state.text + letter
-		})
-	}
+	
 	render() {
 		return (
 			<div>
-				<button onClick={this.handleClick}>Dodaj "A"</button>
-				<h1>{this.state.text}</h1>
+				<button className="bt" onClick={this.handleClick.bind(this)}>{this.props.btnTitle}</button>
+				<h1>{this.state.txt}</h1>
 			</div>
 		)
 	}
 }
 
-ReactDOM.render(<App />, document.getElementById("app"))
+ReactDOM.render(<App btnTitle="add digit" />, document.getElementById("app1"))
 
+//-------------------------------------------------//
 
+class Counter extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			count:0,
+			result: 0
+		}
+	}
 
+	handleMathClick(type, number) {
+		if(type === "sub") {	
+			this.setState(prevState =>({
+				count: prevState.count + 1,
+				result: prevState.result - number
+			}))
+		} else if (type === "reset"){
+			this.setState(prevState => ({
+				count: prevState.count + 1,
+				result: 0
+			}))
+		} else if (type === "add"){
+			this.setState(prevState => ({
+				count: prevState.count + 1,
+				result: prevState.result + number
+			}))
+		}
+	}
 
+	render() {
+		return (
+		<div>	
+			<button onClick={this.handleMathClick.bind(this,"sub", 1)}>-1</button>
+			<button onClick={() => this.handleMathClick("reset")}>RESET</button>
+			<button onClick={() => this.handleMathClick("add", 1)}>+1</button>
+			<h1>Clicks number: {this.state.count}</h1>
+			<h1>Result: {this.state.result}</h1>
+		</div>	
+		)
+	}
+
+}
+
+ReactDOM.render(<Counter />, document.getElementById("app2"))
 
 
 /*
@@ -38,24 +82,21 @@ ReactDOM.render(template, appRoot);
 
 /////////////////////////////////////////////////
 /*
+
+
+
 class Stopwatch extends React.Component {
+	
+
 	render() {
 		return (
 			<div>
-
+				
 			</div>
 		)
 	}
 }
-
-const jsx = (
-	<div>
-		<Stopwatch />
-	</div>
-)
-
-
-ReactDOM.render(jsx, document.getElementById('app'));
+ReactDOM.render(<Stopwatch />, document.getElementById('app3'));
 */
 
 
