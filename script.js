@@ -13,7 +13,7 @@ class App extends React.Component {
 			})
 		}
 	}
-	
+
 	render() {
 		return (
 			<div>
@@ -32,23 +32,23 @@ class Counter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			count:0,
+			count: 0,
 			result: 0
 		}
 	}
 
 	handleMathClick(type, number) {
-		if(type === "sub") {	
-			this.setState(prevState =>({
+		if (type === "sub") {
+			this.setState(prevState => ({
 				count: prevState.count + 1,
 				result: prevState.result - number
 			}))
-		} else if (type === "reset"){
+		} else if (type === "reset") {
 			this.setState(prevState => ({
 				count: prevState.count + 1,
 				result: 0
 			}))
-		} else if (type === "add"){
+		} else if (type === "add") {
 			this.setState(prevState => ({
 				count: prevState.count + 1,
 				result: prevState.result + number
@@ -58,13 +58,13 @@ class Counter extends React.Component {
 
 	render() {
 		return (
-		<div>	
-			<button onClick={this.handleMathClick.bind(this,"sub", 1)}>-1</button>
-			<button onClick={() => this.handleMathClick("reset")}>RESET</button>
-			<button onClick={() => this.handleMathClick("add", 1)}>+1</button>
-			<h1>Clicks number: {this.state.count}</h1>
-			<h1>Result: {this.state.result}</h1>
-		</div>	
+			<div>
+				<button onClick={this.handleMathClick.bind(this, "sub", 1)}>-1</button>
+				<button onClick={() => this.handleMathClick("reset")}>RESET</button>
+				<button onClick={() => this.handleMathClick("add", 1)}>+1</button>
+				<h1>Clicks number: {this.state.count}</h1>
+				<h1>Result: {this.state.result}</h1>
+			</div>
 		)
 	}
 
@@ -73,53 +73,52 @@ class Counter extends React.Component {
 ReactDOM.render(<Counter />, document.getElementById("app2"))
 
 
-/*
-let template = (<div><h1>Decision</h1></div>);
-let appRoot = document.getElementById("app");
+//-------------------------------------------------//
 
-ReactDOM.render(template, appRoot);
-*/
-
-/////////////////////////////////////////////////
-
-
-
+function pad0(value) {
+	let result = value.toString();
+	if (result.length < 2) {
+		result = '0' + result;
+	}
+	return result;
+}
 
 class Stopwatch extends React.Component {
-	
-	constructor(props) {
-		super(props);
-        this.running = false;
-        this.display = this.display;
-        this.reset();
+
+	constructor(display) {
+		super(display);
+		this.running = false;
+		this.display = display;
+		this.reset();
 		this.print(this.times);
+
 	}
-	
+
 	reset() {
-        this.times = {
-            minutes: 0,
-            seconds: 0,
-            miliseconds: 0
-        };
+		this.times = {
+			minutes: 0,
+			seconds: 0,
+			miliseconds: 0
+		};
 		this.print();
-    }
+	}
 
 	print() {
-        this.display.innerText = this.format(this.times);
+		this.display = this.format(this.times);
 	}
 
-	format(times) {
-		return `${pad0(times.minutes)}:${pad0(times.seconds)}:${pad0(Math.floor(times.miliseconds))}`;
-		
+	format() {
+		return `${pad0(this.times.minutes)}:${pad0(this.times.seconds)}:${pad0(Math.floor(this.times.miliseconds))}`
 	}
+
 
 	start() {
 		if (!this.running) {
 			this.running = true;
 			this.watch = setInterval(() => this.step(), 10);
-			}
+		}
 	}
-	
+
 	step() {
 		if (!this.running) return;
 		this.calculate();
@@ -137,47 +136,53 @@ class Stopwatch extends React.Component {
 			this.times.seconds = 0;
 		}
 	}
-	
+
 	stop() {
 		this.running = false;
 		clearInterval(this.watch);
 	}
 	//}
+
 	/*
-	pad0 (value) {
+	pad0() {
+		return "AAA"
+	}
+	
+	
+	pad0(value) {
 		let result = value.toString();
 		if (result.length < 2) {
 			result = '0' + result;
 		}
 		return result;
 	}
-	
-	
-	
+		
+		
+	/*
 	const stopwatch = new Stopwatch(
 	document.querySelector('.stopwatch'));
 		
 	let startButton = document.getElementById('start');
 	startButton.addEventListener('click', () => stopwatch.start());
-	
+		
 	let stopButton = document.getElementById('stop');
 	stopButton.addEventListener('click', () => stopwatch.stop());
-	
+		
 	let resetButton = document.getElementById('reset');
 	resetButton.addEventListener('click', () => stopwatch.reset());
-	
-
+		
+		
 	*/
 
 	render() {
 		return (
 			<div>
 				<nav className="controls">
-					<a href="#" className="button" id="start">Start</a>
-					<a href="#" className="button" id="stop">Stop</a>
+					<a href="#" className="button" id="start" onClick={this.start}>Start</a>
+					<a href="#" className="button" id="stop" onClick={this.stop}>Stop</a>
 				</nav>
-				<div className="stopwatch"></div>
-    			<ul className="results"></ul>
+				<div className="stopwatch">{this.display}</div>
+				<ul className="results"></ul>
 			</div>
 		)
 	}
