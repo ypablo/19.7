@@ -1,4 +1,13 @@
 
+
+function pad0(value) {
+	let result = value.toString();
+	if (result.length < 2) {
+		result = '0' + result;
+	}
+	return result;
+}
+
 class Stopwatch extends React.Component {
 
 	constructor(props) {
