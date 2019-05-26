@@ -12,11 +12,21 @@ class Stopwatch extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.running = false;
-		this.display = props.display;
-		this.reset();
-		this.print(this.times);
-
+		//this.running = false;
+		this.state = {
+			running: false,
+			watch: 0,
+			minutes: 0,
+			seconds: 0,
+			miliseconds: 0
+		}
+		/*
+		this.times = {
+			minutes: 0,
+			seconds: 0,
+			miliseconds: 0
+		}
+		*/
 	}
 
 	reset() {
@@ -25,9 +35,10 @@ class Stopwatch extends React.Component {
 			seconds: 0,
 			miliseconds: 0
 		};
-		this.print();
+		//this.print();
 	}
 
+	/*
 	print() {
 		this.display = this.format(this.times);
 	}
@@ -35,36 +46,37 @@ class Stopwatch extends React.Component {
 	format() {
 		return `${pad0(this.times.minutes)}:${pad0(this.times.seconds)}:${pad0(Math.floor(this.times.miliseconds))}`
 	}
-
+	*/
 
 	start() {
-		if (!this.running) {
-			this.running = true;
-			this.watch = setInterval(() => this.step(), 10);
+		if (!this.state.running) {
+			this.setState({ running: true });
+			this.state.watch = setInterval(() => this.calculate(), 10);
 		}
 	}
 
+	/*
 	step() {
-		if (!this.running) return;
+		if (!this.state.running) return;
 		this.calculate();
-		this.print();
 	}
+	*/
 
 	calculate() {
-		this.times.miliseconds += 1;
-		if (this.times.miliseconds >= 100) {
-			this.times.seconds += 1;
-			this.times.miliseconds = 0;
+		this.state.miliseconds += 1;
+		if (this.state.miliseconds >= 100) {
+			this.state.seconds += 1;
+			this.state.miliseconds = 0;
 		}
-		if (this.times.seconds >= 60) {
-			this.times.minutes += 1;
-			this.times.seconds = 0;
+		if (this.state.seconds >= 60) {
+			this.state.minutes += 1;
+			this.state.seconds = 0;
 		}
 	}
 
 	stop() {
-		this.running = false;
-		clearInterval(this.watch);
+		this.setState({ running: false });
+		clearInterval(this.state.watch);
 	}
 
 
@@ -75,7 +87,7 @@ class Stopwatch extends React.Component {
 					<a href="#" className="button" id="start" onClick={this.start.bind(this)}>Start</a>
 					<a href="#" className="button" id="stop" onClick={this.stop.bind(this)}>Stop</a>
 				</nav>
-				<div className="stopwatch">{this.display}</div>
+				<div className="stopwatch">{pad0(this.state.minutes)}:{pad0(this.state.seconds)}:{pad0(Math.floor(this.state.miliseconds))}</div>
 				<ul className="results">
 					<a href="#" className="button" id="reset" onClick={this.reset.bind(this)}>Reset</a>
 				</ul>
@@ -85,7 +97,7 @@ class Stopwatch extends React.Component {
 }
 
 
-ReactDOM.render(<Stopwatch />, document.getElementById('app3'));
+ReactDOM.render(<Stopwatch />, document.getElementById('app'));
 
 
 
